@@ -25,6 +25,7 @@
     /* Top-bar text accents */
     --topbar-title: #176b66;
     --topbar-accent: #6573ad;
+    --topbar-user: #424851;
 
     --accent: #dff6e8;
     --accent-strong: #38a169;
@@ -333,69 +334,57 @@ textarea {
 
 /* =========================================================
    Dashboard shell
-   Direction D — 頂部光帶背景
+   Direction D — 頂部光帶背景（continuous fade）
    ========================================================= */
 
 .dashboard-page {
     position: relative;
     min-height: 100vh;
     isolation: isolate;
-    background: var(--bg);
-}
 
-.dashboard-page::before {
-    content: "";
-    position: fixed;
-    inset: 0 0 auto 0;
-    z-index: -2;
-    height: 430px;
-
+    /*
+       Continuous gradients on the whole page eliminate the hard
+       horizontal cutoff caused by the previous fixed-height layer.
+    */
     background:
         radial-gradient(
-            900px 300px at 8% -5%,
-            rgba(185, 236, 224, 0.92),
-            rgba(185, 236, 224, 0.30) 48%,
-            transparent 72%
-        ),
-        radial-gradient(
-            760px 280px at 54% 0%,
-            rgba(190, 233, 239, 0.88),
-            rgba(190, 233, 239, 0.28) 50%,
-            transparent 74%
-        ),
-        radial-gradient(
-            720px 300px at 92% -8%,
-            rgba(221, 216, 241, 0.88),
-            rgba(221, 216, 241, 0.26) 52%,
+            78rem 30rem at 2% -8%,
+            rgba(183, 236, 223, 0.92) 0%,
+            rgba(183, 236, 223, 0.42) 36%,
+            rgba(183, 236, 223, 0.12) 57%,
             transparent 76%
         ),
+        radial-gradient(
+            70rem 29rem at 52% -12%,
+            rgba(187, 231, 239, 0.86) 0%,
+            rgba(187, 231, 239, 0.32) 40%,
+            rgba(187, 231, 239, 0.08) 61%,
+            transparent 78%
+        ),
+        radial-gradient(
+            68rem 29rem at 100% -10%,
+            rgba(219, 214, 241, 0.86) 0%,
+            rgba(219, 214, 241, 0.30) 40%,
+            rgba(219, 214, 241, 0.08) 62%,
+            transparent 80%
+        ),
         linear-gradient(
-            135deg,
-            #ecfbf5 0%,
-            #e9f8f7 38%,
-            #eef2fb 72%,
-            rgba(247, 249, 250, 0) 100%
+            180deg,
+            rgba(239, 251, 247, 0.90) 0%,
+            rgba(241, 249, 250, 0.72) 20rem,
+            rgba(246, 249, 250, 0.46) 38rem,
+            rgba(247, 249, 250, 0.88) 56rem,
+            var(--bg) 72rem
         );
 
-    pointer-events: none;
+    background-color: var(--bg);
+    background-repeat: no-repeat;
 }
 
+/* Old fixed-height background layers are intentionally disabled. */
+.dashboard-page::before,
 .dashboard-page::after {
-    content: "";
-    position: fixed;
-    inset: 0 0 auto 0;
-    z-index: -1;
-    height: 300px;
-
-    background:
-        linear-gradient(
-            165deg,
-            rgba(255, 255, 255, 0.36) 0%,
-            rgba(255, 255, 255, 0.08) 38%,
-            transparent 70%
-        );
-
-    pointer-events: none;
+    content: none;
 }
 
 .topbar {
@@ -430,11 +419,12 @@ textarea {
     font-size: 13px;
 }
 
-.topbar strong {
-    color: var(--topbar-accent);
+/* Dispatcher user's name uses a dark neutral. */
+#dispatcher-name {
+    color: var(--topbar-user);
 }
 
-/* Driver greeting: keep the name accented, but "你好" dark */
+/* Driver greeting: accented name, dark “，你好”. */
 .topbar h1:has(#driver-name) {
     color: var(--text);
 }
@@ -453,7 +443,6 @@ textarea {
     display: grid;
     gap: 22px;
 }
-
 
 /* ---------- Panels ---------- */
 
@@ -864,30 +853,30 @@ strong {
         font-size: 14px;
     }
 
-    .dashboard-page::before {
-        height: 360px;
-
+    .dashboard-page {
         background:
             radial-gradient(
-                520px 220px at 2% 0%,
-                rgba(183, 236, 223, 0.82),
-                transparent 70%
+                42rem 21rem at -12% -4%,
+                rgba(181, 236, 222, 0.88) 0%,
+                rgba(181, 236, 222, 0.28) 48%,
+                transparent 74%
             ),
             radial-gradient(
-                500px 220px at 100% 0%,
-                rgba(217, 215, 241, 0.76),
-                transparent 72%
+                40rem 21rem at 112% -4%,
+                rgba(218, 214, 241, 0.80) 0%,
+                rgba(218, 214, 241, 0.24) 48%,
+                transparent 76%
             ),
             linear-gradient(
-                135deg,
-                #ecfbf5 0%,
-                #eaf7f8 48%,
-                #eff2fb 100%
+                180deg,
+                rgba(238, 251, 247, 0.92) 0%,
+                rgba(241, 248, 250, 0.66) 18rem,
+                rgba(247, 249, 250, 0.90) 34rem,
+                var(--bg) 46rem
             );
-    }
 
-    .dashboard-page::after {
-        height: 250px;
+        background-color: var(--bg);
+        background-repeat: no-repeat;
     }
 
     .topbar {
