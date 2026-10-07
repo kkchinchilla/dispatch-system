@@ -6,7 +6,7 @@
 /* ---------- Design tokens ---------- */
 
 :root {
-    --bg: #f4f6f8;
+    --bg: #f7f9fa;
     --surface: #ffffff;
     --surface-soft: #f8fafb;
     --surface-hover: #f1f4f6;
@@ -21,6 +21,10 @@
     --primary: #171a1f;
     --primary-hover: #2a2e35;
     --primary-contrast: #ffffff;
+
+    /* Top-bar text accents */
+    --topbar-title: #176b66;
+    --topbar-accent: #6573ad;
 
     --accent: #dff6e8;
     --accent-strong: #38a169;
@@ -62,13 +66,7 @@ body {
     margin: 0;
     min-height: 100vh;
     color: var(--text);
-    background:
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(214, 245, 226, 0.55),
-            transparent 28rem
-        ),
-        var(--bg);
+    background: var(--bg);
 
     font-family:
         Inter,
@@ -335,11 +333,69 @@ textarea {
 
 /* =========================================================
    Dashboard shell
+   Direction D — 頂部光帶背景
    ========================================================= */
 
 .dashboard-page {
+    position: relative;
     min-height: 100vh;
-    background: transparent;
+    isolation: isolate;
+    background: var(--bg);
+}
+
+.dashboard-page::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: -2;
+    height: 430px;
+
+    background:
+        radial-gradient(
+            900px 300px at 8% -5%,
+            rgba(185, 236, 224, 0.92),
+            rgba(185, 236, 224, 0.30) 48%,
+            transparent 72%
+        ),
+        radial-gradient(
+            760px 280px at 54% 0%,
+            rgba(190, 233, 239, 0.88),
+            rgba(190, 233, 239, 0.28) 50%,
+            transparent 74%
+        ),
+        radial-gradient(
+            720px 300px at 92% -8%,
+            rgba(221, 216, 241, 0.88),
+            rgba(221, 216, 241, 0.26) 52%,
+            transparent 76%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfbf5 0%,
+            #e9f8f7 38%,
+            #eef2fb 72%,
+            rgba(247, 249, 250, 0) 100%
+        );
+
+    pointer-events: none;
+}
+
+.dashboard-page::after {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: -1;
+    height: 300px;
+
+    background:
+        linear-gradient(
+            165deg,
+            rgba(255, 255, 255, 0.36) 0%,
+            rgba(255, 255, 255, 0.08) 38%,
+            transparent 70%
+        );
+
+    pointer-events: none;
 }
 
 .topbar {
@@ -354,14 +410,18 @@ textarea {
 
     padding: 18px max(28px, calc((100vw - var(--content-width)) / 2));
 
-    background: rgba(244, 246, 248, 0.88);
-    border-bottom: 1px solid rgba(224, 228, 233, 0.9);
+    background: rgba(255, 255, 255, 0.58);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.72);
 
-    backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 rgba(38, 52, 61, 0.04);
+
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
 }
 
 .topbar h1 {
     margin-bottom: 4px;
+    color: var(--topbar-title);
     font-size: 24px;
 }
 
@@ -371,10 +431,22 @@ textarea {
 }
 
 .topbar strong {
+    color: var(--topbar-accent);
+}
+
+/* Driver greeting: keep the name accented, but "你好" dark */
+.topbar h1:has(#driver-name) {
     color: var(--text);
 }
 
+#driver-name {
+    color: var(--topbar-accent);
+}
+
 .dashboard {
+    position: relative;
+    z-index: 1;
+
     width: min(var(--content-width), calc(100% - 56px));
     margin: 32px auto 64px;
 
@@ -391,11 +463,16 @@ textarea {
 
     padding: 26px;
 
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(229, 232, 236, 0.88);
     border-radius: var(--radius-lg);
 
-    box-shadow: var(--shadow-sm);
+    box-shadow:
+        0 1px 2px rgba(18, 24, 32, 0.03),
+        0 12px 34px rgba(30, 54, 64, 0.055);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .panel > h2:first-child {
@@ -785,6 +862,32 @@ strong {
 @media (max-width: 760px) {
     body {
         font-size: 14px;
+    }
+
+    .dashboard-page::before {
+        height: 360px;
+
+        background:
+            radial-gradient(
+                520px 220px at 2% 0%,
+                rgba(183, 236, 223, 0.82),
+                transparent 70%
+            ),
+            radial-gradient(
+                500px 220px at 100% 0%,
+                rgba(217, 215, 241, 0.76),
+                transparent 72%
+            ),
+            linear-gradient(
+                135deg,
+                #ecfbf5 0%,
+                #eaf7f8 48%,
+                #eff2fb 100%
+            );
+    }
+
+    .dashboard-page::after {
+        height: 250px;
     }
 
     .topbar {
