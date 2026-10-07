@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <header class="topbar">
+
+        <div>
+            <h1>
+
+                <span id="driver-name">...</span>，你好
+            </h1>
+
+            <p>
+                今日配送任務
+            </p>
+        </div>
+
+        <button id="logout-button">
+            登出
+        </button>
+
+    </header>
+
+
+    <main class="dashboard driver-dashboard">
+
+        <section class="panel">
+
+            <div class="board-header">
+
+                <h2>我的配送趟次</h2>
+
+                <input type="date" id="driver-date">
+
+            </div>
+
+
+            <div id="driver-runs">
+
+                <p>
+                    Loading...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="js/config.js"></script>
+    <script src="js/driver.js"></script>
+
+</body>
+
+</html>

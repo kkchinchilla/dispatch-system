@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dispatch Board</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <header class="topbar">
+
+        <div>
+            <h1>每日派車看板</h1>
+            <p>
+                目前登入：
+                <strong id="dispatcher-name">...</strong>
+            </p>
+        </div>
+
+        <button id="logout-button">
+            登出
+        </button>
+
+    </header>
+
+
+    <main class="dashboard">
+
+        <!-- CREATE RUN -->
+
+        <section class="panel">
+
+            <h2>新增配送趟次</h2>
+
+            <form id="run-form">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label for="service-date">
+                            配送日期
+                        </label>
+
+                        <input type="date" id="service-date" required>
+                    </div>
+
+
+                    <div>
+                        <label for="scheduled-time">
+                            預計出發時間
+                        </label>
+
+                        <input type="time" id="scheduled-time" required>
+                    </div>
+
+
+                    <div>
+                        <label for="route">
+                            配送路線
+                        </label>
+
+                        <select id="route" required>
+                            <option value="">
+                                Loading...
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="driver">
+                            司機
+                        </label>
+
+                        <select id="driver" required>
+                            <option value="">
+                                Loading...
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="vehicle">
+                            車輛
+                        </label>
+
+                        <select id="vehicle" required>
+                            <option value="">
+                                Loading...
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div>
+                    <label for="dispatcher-notes">
+                        調度備註
+                    </label>
+
+                    <textarea id="dispatcher-notes" rows="3"></textarea>
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="submit" id="submit-run-button">
+                        新增趟次
+                    </button>
+
+                    <button type="button" id="cancel-edit-button" hidden>
+                        取消編輯
+                    </button>
+
+                </div>
+
+                <p id="form-message"></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- DAILY BOARD -->
+
+        <section class="panel">
+
+            <div class="board-header">
+
+                <h2>每日配送趟次</h2>
+
+                <input type="date" id="board-date">
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>路線</th>
+                            <th>司機</th>
+                            <th>車輛</th>
+                            <th>狀態</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="runs-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p id="empty-message"></p>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="board-header">
+
+                <div>
+                    <h2>每月趟次統計</h2>
+                    <p>
+                        僅統計已完成的配送趟次
+                    </p>
+                </div>
+
+                <div class="report-controls">
+
+                    <input type="month" id="report-month">
+
+                    <button type="button" id="refresh-report-button">
+                        重新整理
+                    </button>
+
+                    <button type="button" id="export-csv-button">
+                        匯出 CSV
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-summary">
+
+                <div class="summary-card">
+
+                    <span>
+                        已完成趟次
+                    </span>
+
+                    <strong id="total-completed-runs">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-columns">
+
+                <div>
+
+                    <h3>司機趟次統計</h3>
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>司機</th>
+                                <th>趟次</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="driver-report-body">
+                        </tbody>
+
+                    </table>
+
+                    <p id="driver-report-empty"></p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>車輛趟次統計</h3>
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>車輛</th>
+                                <th>趟次</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="vehicle-report-body">
+                        </tbody>
+
+                    </table>
+
+                    <p id="vehicle-report-empty"></p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="js/config.js"></script>
+    <script src="js/dispatcher.js"></script>
+
+</body>
+
+</html>

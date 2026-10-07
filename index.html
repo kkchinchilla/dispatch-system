@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>配送趟次管理系統</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-page">
+
+    <main class="login-card">
+
+        <h1>配送趟次管理系統</h1>
+
+        <form id="login-form">
+
+            <label for="email">
+                電子郵件
+            </label>
+
+            <input id="email" type="email" required>
+
+            <label for="password">
+                密碼
+            </label>
+
+            <input id="password" type="password" required>
+
+            <button type="submit">
+                登入
+            </button>
+
+            <p id="error-message"></p>
+
+        </form>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>
